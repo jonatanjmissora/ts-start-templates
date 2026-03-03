@@ -1,10 +1,16 @@
+import { authRouteMiddleware } from "@/lib/route-middleware"
 import { createFileRoute } from "@tanstack/react-router"
 
-export const Route = createFileRoute("/")({ component: App })
+export const Route = createFileRoute("/")({
+	component: App,
+	server: {
+		middleware: [authRouteMiddleware],
+	},
+})
 
 function App() {
 	return (
-		<div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
+		<div className="min-h-screen">
 			<section className="relative py-20 px-6 text-center overflow-hidden text-white">
 				HOME
 			</section>

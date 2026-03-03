@@ -10,6 +10,7 @@ import Header from "../components/Header"
 
 import appCss from "../styles.css?url"
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools"
+import { Toaster } from "sonner"
 
 interface MyRouterContext {
 	queryClient: QueryClient
@@ -42,13 +43,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="dark">
 			<head>
 				<HeadContent />
 			</head>
 			<body>
 				<Header />
 				{children}
+				<Toaster />
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
