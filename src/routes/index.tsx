@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
 
 function App() {
 	return (
-		<div className="min-h-screen">
+		<div className="flex-1">
 			<section className="relative py-20 px-6 text-center overflow-hidden text-white">
 				HOME
 			</section>

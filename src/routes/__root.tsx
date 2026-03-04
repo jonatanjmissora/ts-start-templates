@@ -47,7 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
+			<body className="w-screen overflow-x-hidden flex flex-col min-h-screen">
 				<Header />
 				{children}
 				<Toaster />

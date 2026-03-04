@@ -136,3 +136,22 @@ code {
     @apply bg-background text-foreground;
   }
 }
+
+/* font-size: clamp(F1rem, Arem + Bvw, F2rem); */
+/* W1 = 1366
+W2 = 1920
+F1 = 0.75
+F2 = 1 */
+/* m = (1 - 0.75) / (1920 - 1366) = 0.000445
+B = m x 100 = 0.000451 × 100
+A = F1 - (m x W1) = 0.75 - (0.000451 × 1366) = -0.8637 */
+
+html {
+  font-size: clamp(12px, 0.5rem + 0.1vw, 20px);
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 1rem;
+  }
+}

@@ -53,7 +53,7 @@ export function RegisterForm({
 				{
 					onSuccess: () => {
 						toast.success("Registro exitoso")
-						router.invalidate()
+						router.navigate({ to: "/" })
 					},
 					onError: ctx => {
 						toast.error(ctx.error.message)
@@ -74,7 +74,7 @@ export function RegisterForm({
 	return (
 		<div
 			className={cn(
-				"min-w-1/4 flex flex-col gap-6 w-[95%] sm:w-1/4 mx-auto",
+				"min-w-1/4 flex flex-col gap-6 w-full sm:w-1/4 mx-auto",
 				className
 			)}
 			{...props}

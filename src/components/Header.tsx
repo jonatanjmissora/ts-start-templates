@@ -31,7 +31,7 @@ export default function Header() {
 	}
 
 	return (
-		<header className="p-4 px-20">
+		<header className="py-8 w-[90%] 2xl:w-[80%] mx-auto">
 			<nav className="flex items-center justify-between">
 				<span className="text-xl font-semibold">Logo</span>
 

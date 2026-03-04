@@ -78,7 +78,7 @@ export function LoginForm({
 	return (
 		<div
 			className={cn(
-				"min-w-1/4 flex flex-col gap-6 w-[95%] sm:w-1/4 mx-auto",
+				"min-w-1/4 flex flex-col gap-6 w-full sm:w-1/4 mx-auto",
 				className
 			)}
 			{...props}
