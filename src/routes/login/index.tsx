@@ -7,7 +7,7 @@ export const Route = createFileRoute("/login/")({
 
 function RouteComponent() {
 	return (
-		<section className="w-full mt-20">
+		<section className="w-full mt-10 2xl:mt-20">
 			<LoginForm />
 		</section>
 	)
