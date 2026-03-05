@@ -598,7 +598,7 @@ transicion entre login y register
 fin de primer template
 preguntar si me quiero logout
 hay un flick al momento de refrescar el Header, con el icono del thema, es hasta que toma la session
-ver de hacerlo con el loader del __router.tsx (no tengo la session en el context)
-dejar el thema en el localstorage
-controlar que de login puedo ir a / y no estoy logueado?
+dejar el thema en el localstorage o cookies
+
+
 

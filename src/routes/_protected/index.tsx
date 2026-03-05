@@ -1,12 +1,8 @@
-import { authRouteMiddleware } from "@/lib/route-middleware"
 import { createFileRoute } from "@tanstack/react-router"
 import SectionContainer from "@/components/layout/section-container"
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_protected/")({
 	component: App,
-	server: {
-		middleware: [authRouteMiddleware],
-	},
 })
 
 function App() {

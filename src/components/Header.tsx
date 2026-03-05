@@ -10,12 +10,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-// import { Route } from "@/routes/__root"
 import { authClient } from "@/lib/auth-client"
+import { Route } from "@/routes/__root"
 
 export default function Header() {
 	const [theme, setTheme] = useState<"light" | "dark">("light")
-	const { data: session } = authClient.useSession()
+	const { session } = Route.useLoaderData()
 
 	const toggleTheme = () => {
 		if (typeof window !== "undefined") {

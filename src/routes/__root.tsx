@@ -11,12 +11,17 @@ import Header from "../components/Header"
 import appCss from "../styles.css?url"
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools"
 import { Toaster } from "sonner"
+import { Session } from "better-auth"
+import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary"
+import { NotFound } from "@/components/NotFound"
+import { getSession } from "server/get-session"
 
-interface MyRouterContext {
+export type RouterContext = {
+	session: Session | null
 	queryClient: QueryClient
 }
 
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext<RouterContext>()({
 	head: () => ({
 		meta: [
 			{
@@ -37,8 +42,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			},
 		],
 	}),
-
+	loader: async () => {
+		const session = await getSession()
+		return { session }
+	},
 	shellComponent: RootDocument,
+	errorComponent: DefaultCatchBoundary,
+	notFoundComponent: () => <NotFound />,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
