@@ -1,5 +1,6 @@
 import { authRouteMiddleware } from "@/lib/route-middleware"
 import { createFileRoute } from "@tanstack/react-router"
+import SectionContainer from "@/components/layout/section-container"
 
 export const Route = createFileRoute("/")({
 	component: App,
@@ -11,9 +12,7 @@ export const Route = createFileRoute("/")({
 function App() {
 	return (
 		<div className="flex-1">
-			<section className="relative py-20 px-6 text-center overflow-hidden text-white">
-				HOME
-			</section>
+			<SectionContainer>HOME</SectionContainer>
 		</div>
 	)
 }

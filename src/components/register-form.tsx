@@ -21,6 +21,8 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { Link, useRouter } from "@tanstack/react-router"
 import { authClient } from "@/lib/auth-client"
+import { useState } from "react"
+import { Eye, EyeClosed } from "lucide-react"
 
 const formSchema = z.object({
 	nombre: z.string().min(3, "Nombre mínimo de 3 caracteres."),
@@ -33,6 +35,7 @@ export function RegisterForm({
 	...props
 }: React.ComponentProps<"div">) {
 	const router = useRouter()
+	const [showPassword, setShowPassword] = useState(false)
 	const form = useForm({
 		defaultValues: {
 			nombre: "",
@@ -167,17 +170,29 @@ export function RegisterForm({
 									return (
 										<Field data-invalid={isInvalid}>
 											<FieldLabel htmlFor={field.name}>Contraseña</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value}
-												onBlur={field.handleBlur}
-												onChange={e => field.handleChange(e.target.value)}
-												aria-invalid={isInvalid}
-												placeholder="********"
-												autoComplete="off"
-												type="password"
-											/>
+											<div className="relative">
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value}
+													onBlur={field.handleBlur}
+													onChange={e => field.handleChange(e.target.value)}
+													aria-invalid={isInvalid}
+													placeholder="********"
+													type={showPassword ? "text" : "password"}
+												/>
+												<button
+													type="button"
+													onClick={() => setShowPassword(!showPassword)}
+													className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+												>
+													{showPassword ? (
+														<EyeClosed size={16} />
+													) : (
+														<Eye size={16} />
+													)}
+												</button>
+											</div>
 											{isInvalid && (
 												<FieldError errors={field.state.meta.errors} />
 											)}

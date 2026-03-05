@@ -4,7 +4,7 @@ export default function SectionContainer({
 	children: React.ReactNode
 }) {
 	return (
-		<section className="w-[90%] 2xl:w-[80%] mx-auto mt-14 2xl:mt-32 flex-1">
+		<section className="w-[90%] 2xl:w-[80%] mx-auto my-14 sm:my-3 2xl:my-32 flex-1">
 			{children}
 		</section>
 	)

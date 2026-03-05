@@ -33,7 +33,9 @@ export default function Header() {
 	return (
 		<header className="py-8 w-[90%] 2xl:w-[80%] mx-auto">
 			<nav className="flex items-center justify-between">
-				<span className="text-xl font-semibold">Logo</span>
+				<Link to="/" className="text-xl font-semibold">
+					Logo
+				</Link>
 
 				{session ? (
 					<DropdownMenuDemo
@@ -43,7 +45,7 @@ export default function Header() {
 					/>
 				) : (
 					<div className="flex items-center gap-4">
-						<button className="" onClick={toggleTheme}>
+						<button className="cursor-pointer" onClick={toggleTheme}>
 							{theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
 						</button>
 					</div>

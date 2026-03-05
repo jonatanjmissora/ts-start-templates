@@ -23,6 +23,7 @@ import { Link } from "@tanstack/react-router"
 import { useRouter } from "@tanstack/react-router"
 import { useState } from "react"
 import { authClient } from "@/lib/auth-client"
+import { Eye, EyeClosed } from "lucide-react"
 
 const formSchema = z.object({
 	email: z.email("Email inválido"),
@@ -35,6 +36,8 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 	const router = useRouter()
 	const [loading, setLoading] = useState(false)
+	const [showPassword, setShowPassword] = useState(false)
+
 	const form = useForm({
 		defaultValues: {
 			email: "",
@@ -144,16 +147,29 @@ export function LoginForm({
 									return (
 										<Field data-invalid={isInvalid}>
 											<FieldLabel htmlFor={field.name}>Contraseña</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value}
-												onBlur={field.handleBlur}
-												onChange={e => field.handleChange(e.target.value)}
-												aria-invalid={isInvalid}
-												placeholder="********"
-												type="password"
-											/>
+											<div className="relative">
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value}
+													onBlur={field.handleBlur}
+													onChange={e => field.handleChange(e.target.value)}
+													aria-invalid={isInvalid}
+													placeholder="********"
+													type={showPassword ? "text" : "password"}
+												/>
+												<button
+													type="button"
+													onClick={() => setShowPassword(!showPassword)}
+													className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+												>
+													{showPassword ? (
+														<EyeClosed size={16} />
+													) : (
+														<Eye size={16} />
+													)}
+												</button>
+											</div>
 											{isInvalid && (
 												<FieldError errors={field.state.meta.errors} />
 											)}

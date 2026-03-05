@@ -147,7 +147,7 @@ B = m x 100 = 0.000451 × 100
 A = F1 - (m x W1) = 0.75 - (0.000451 × 1366) = -0.8637 */
 
 html {
-  font-size: clamp(12px, 0.5rem + 0.1vw, 20px);
+  font-size: clamp(13px, 0.75rem + 0.1vw, 28px);
 }
 
 @media (max-width: 768px) {
