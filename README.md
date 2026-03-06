@@ -593,11 +593,9 @@ export function DropdownMenuDemo({
 }
 
 
-responsive
 transicion entre login y register
+hacer el readme
 fin de primer template
-hay un flick al momento de refrescar el Header, con el icono del thema, es hasta que toma la session
-dejar el thema en el localstorage o cookies
 
 
 

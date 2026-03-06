@@ -1,12 +1,16 @@
-import { Link, useNavigate } from "@tanstack/react-router"
-import { LogOut, Moon, Sun } from "lucide-react"
+import {
+	Link,
+	useNavigate,
+	useRouteContext,
+	useRouter,
+} from "@tanstack/react-router"
+import { LogOut, Monitor, Moon, Sun } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuGroup,
-	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -19,22 +23,19 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "./ui/alert-dialog"
+import { setThemeServerFn } from "server/theme"
 
 export default function Header() {
-	const [theme, setTheme] = useState<"light" | "dark">("light")
 	const { session } = Route.useLoaderData()
+	const { theme } = useRouteContext({ from: "__root__" })
+	const router = useRouter()
 
 	const toggleTheme = () => {
-		if (typeof window !== "undefined") {
-			const html = document.documentElement
-			if (html.classList.contains("dark")) {
-				html.classList.remove("dark")
-				setTheme("light")
-			} else {
-				html.classList.add("dark")
-				setTheme("dark")
-			}
-		}
+		const themes = ["light", "dark", "auto"] as const
+		const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length]
+		setThemeServerFn({ data: nextTheme }).then(() => {
+			router.invalidate()
+		})
 	}
 
 	return (
@@ -48,12 +49,18 @@ export default function Header() {
 					<DropdownMenuDemo
 						name={session.user?.name}
 						theme={theme}
-						setTheme={setTheme}
+						toggleTheme={toggleTheme}
 					/>
 				) : (
 					<div className="flex items-center gap-4">
 						<button className="cursor-pointer" onClick={toggleTheme}>
-							{theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+							{theme === "dark" ? (
+								<Moon size={20} />
+							) : theme === "light" ? (
+								<Sun size={20} />
+							) : (
+								<Monitor size={20} />
+							)}
 						</button>
 					</div>
 				)}
@@ -65,25 +72,13 @@ export default function Header() {
 export function DropdownMenuDemo({
 	name,
 	theme,
-	setTheme,
+	toggleTheme,
 }: {
 	name: string
-	theme: "light" | "dark"
-	setTheme: (theme: "light" | "dark") => void
+	theme: "light" | "dark" | "auto"
+	toggleTheme: () => void
 }) {
 	const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-	const toggleTheme = () => {
-		if (typeof window !== "undefined") {
-			const html = document.documentElement
-			if (html.classList.contains("dark")) {
-				html.classList.remove("dark")
-				setTheme("light")
-			} else {
-				html.classList.add("dark")
-				setTheme("dark")
-			}
-		}
-	}
 
 	return (
 		<DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
@@ -97,12 +92,19 @@ export function DropdownMenuDemo({
 					<LogoutAlertDialog setUserMenuOpen={setIsUserMenuOpen} />
 					<DropdownMenuSeparator />
 
-					<DropdownMenuItem
+					<button
 						onClick={toggleTheme}
-						className="flex justify-end m-4"
+						className="w-[75%] m-4 hover:bg-accent p-2 rounded-sm flex items-center justify-end gap-2 text-sm cursor-pointer"
 					>
-						Tema {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-					</DropdownMenuItem>
+						Aspecto{" "}
+						{theme === "dark" ? (
+							<Moon size={14} className="text-muted-foreground" />
+						) : theme === "light" ? (
+							<Sun size={14} className="text-muted-foreground" />
+						) : (
+							<Monitor size={14} className="text-muted-foreground" />
+						)}
+					</button>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
@@ -132,7 +134,7 @@ export function LogoutAlertDialog({
 		<AlertDialog open={open} onOpenChange={setOpen}>
 			<AlertDialogTrigger asChild className="w-[75%] m-4 hover:bg-accent">
 				<span className="flex justify-end p-2 rounded-sm cursor-pointer text-sm items-center gap-2">
-					Logout <LogOut size={14} className="opacity-50" />
+					Salir <LogOut size={14} className="text-muted-foreground" />
 				</span>
 			</AlertDialogTrigger>
 			<AlertDialogContent>

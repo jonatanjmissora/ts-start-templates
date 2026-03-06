@@ -15,6 +15,7 @@ import { Session } from "better-auth"
 import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary"
 import { NotFound } from "@/components/NotFound"
 import { getSession } from "server/get-session"
+import { getThemeServerFn } from "server/theme"
 
 export type RouterContext = {
 	session: Session | null
@@ -46,14 +47,19 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		const session = await getSession()
 		return { session }
 	},
+	beforeLoad: async () => ({
+		theme: await getThemeServerFn(),
+	}),
 	shellComponent: RootDocument,
 	errorComponent: DefaultCatchBoundary,
 	notFoundComponent: () => <NotFound />,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { theme } = Route.useRouteContext()
+
 	return (
-		<html lang="en" className="dark">
+		<html lang="en" className={theme}>
 			<head>
 				<HeadContent />
 			</head>
