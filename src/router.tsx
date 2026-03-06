@@ -13,6 +13,7 @@ export const getRouter = () => {
 		routeTree,
 		context: {
 			...rqContext,
+			session: null,
 		},
 
 		defaultPreload: "intent",
