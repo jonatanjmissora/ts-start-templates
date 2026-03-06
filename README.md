@@ -596,7 +596,6 @@ export function DropdownMenuDemo({
 responsive
 transicion entre login y register
 fin de primer template
-preguntar si me quiero logout
 hay un flick al momento de refrescar el Header, con el icono del thema, es hasta que toma la session
 dejar el thema en el localstorage o cookies
 

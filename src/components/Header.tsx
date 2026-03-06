@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router"
-import { Moon, Sun } from "lucide-react"
+import { LogOut, Moon, Sun } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,6 +12,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
 import { Route } from "@/routes/__root"
+import {
+	AlertDialog,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "./ui/alert-dialog"
 
 export default function Header() {
 	const [theme, setTheme] = useState<"light" | "dark">("light")
@@ -64,18 +71,7 @@ export function DropdownMenuDemo({
 	theme: "light" | "dark"
 	setTheme: (theme: "light" | "dark") => void
 }) {
-	const navigate = useNavigate()
-	const logout = async () => {
-		await authClient.signOut({
-			fetchOptions: {
-				onSuccess: () => {
-					// Redirect to home page after successful logout
-					navigate({ to: "/login" })
-				},
-			},
-		})
-	}
-
+	const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 	const toggleTheme = () => {
 		if (typeof window !== "undefined") {
 			const html = document.documentElement
@@ -90,7 +86,7 @@ export function DropdownMenuDemo({
 	}
 
 	return (
-		<DropdownMenu>
+		<DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="cursor-pointer">
 					Bienvenido {name}
@@ -98,9 +94,7 @@ export function DropdownMenuDemo({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-40 p-4" align="end">
 				<DropdownMenuGroup>
-					<DropdownMenuItem onClick={logout} className="flex justify-end m-4">
-						Log out
-					</DropdownMenuItem>
+					<LogoutAlertDialog setUserMenuOpen={setIsUserMenuOpen} />
 					<DropdownMenuSeparator />
 
 					<DropdownMenuItem
@@ -112,5 +106,58 @@ export function DropdownMenuDemo({
 				</DropdownMenuGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
+	)
+}
+
+export function LogoutAlertDialog({
+	setUserMenuOpen,
+}: {
+	setUserMenuOpen: (open: boolean) => void
+}) {
+	const [open, setOpen] = useState(false)
+	const navigate = useNavigate()
+	const logout = async () => {
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					// Redirect to home page after successful logout
+					navigate({ to: "/login" })
+					setUserMenuOpen(false)
+				},
+			},
+		})
+	}
+
+	return (
+		<AlertDialog open={open} onOpenChange={setOpen}>
+			<AlertDialogTrigger asChild className="w-[75%] m-4 hover:bg-accent">
+				<span className="flex justify-end p-2 rounded-sm cursor-pointer text-sm items-center gap-2">
+					Logout <LogOut size={14} className="opacity-50" />
+				</span>
+			</AlertDialogTrigger>
+			<AlertDialogContent>
+				<AlertDialogTitle>
+					¿Estás seguro de que quieres cerrar sesión?
+				</AlertDialogTitle>
+				<AlertDialogDescription>
+					Esto cerrará tu sesión y necesitarás iniciar sesión de nuevo.
+				</AlertDialogDescription>
+				<div className="flex justify-end gap-4">
+					<Button
+						variant="outline"
+						className="cursor-pointer"
+						onClick={() => {
+							setOpen(false)
+							setUserMenuOpen(false)
+						}}
+					>
+						Cancelar
+					</Button>
+					<Button className="cursor-pointer" onClick={logout}>
+						Confirmar
+					</Button>
+				</div>
+			</AlertDialogContent>
+		</AlertDialog>
 	)
 }
