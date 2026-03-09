@@ -5,9 +5,10 @@ import z from "zod"
 const storageKey = "app-theme"
 const setThemeValidator = z.enum(["light", "dark", "auto"])
 
-export const getThemeServerFn = createServerFn().handler(
-	() => setThemeValidator.parse(getCookie(storageKey)) ?? "auto"
-)
+export const getThemeServerFn = createServerFn().handler(() => {
+	const theme = getCookie(storageKey)
+	return theme ? setThemeValidator.parse(theme) : "auto"
+})
 
 export const setThemeServerFn = createServerFn()
 	.inputValidator(setThemeValidator)

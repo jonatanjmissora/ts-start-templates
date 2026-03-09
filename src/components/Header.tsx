@@ -15,7 +15,6 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
-import { Route } from "@/routes/__root"
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -26,8 +25,7 @@ import {
 import { setThemeServerFn } from "server/theme"
 
 export default function Header() {
-	const { session } = Route.useLoaderData()
-	const { theme } = useRouteContext({ from: "__root__" })
+	const { theme, session } = useRouteContext({ from: "__root__" })
 	const router = useRouter()
 
 	const toggleTheme = () => {

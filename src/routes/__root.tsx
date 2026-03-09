@@ -20,6 +20,7 @@ import { getThemeServerFn } from "server/theme"
 export type RouterContext = {
 	session: Session | null
 	queryClient: QueryClient
+	theme: "light" | "dark" | "auto"
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -43,12 +44,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			},
 		],
 	}),
-	loader: async () => {
-		const session = await getSession()
-		return { session }
-	},
 	beforeLoad: async () => ({
-		theme: await getThemeServerFn(),
+		theme: ((await getThemeServerFn()) ?? "auto") as "light" | "dark" | "auto",
+		session: await getSession(),
 	}),
 	shellComponent: RootDocument,
 	errorComponent: DefaultCatchBoundary,
