@@ -181,7 +181,10 @@ export function LoginForm({
 							<Field>
 								<Button type="submit">Ingresar</Button>
 								<FieldDescription className="text-center">
-									No tiene cuenta ? <Link to="/register">Registrate</Link>
+									No tiene cuenta ?{" "}
+									<Link to="/register" viewTransition={{ types: ["rotateZ"] }}>
+										Registrate
+									</Link>
 								</FieldDescription>
 							</Field>
 						</FieldGroup>

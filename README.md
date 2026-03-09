@@ -64,7 +64,7 @@ en el starter queda en blanco tanto el archivo .env y en los formularios de logi
 
 1- routes/__root.tsx   (agregamos la session al loader, para poder invocar los datos de la session en el Header.tsx y poner el nombre del usuario)
 
-✅ hasta aca, tenemos los las rutas protegidas y los datos de la session en el Header
+✅ hasta aca, tenemos las rutas protegidas y los datos de la session en el Header
 
 5️⃣ Theme
 
@@ -76,5 +76,16 @@ en el starter queda en blanco tanto el archivo .env y en los formularios de logi
 
 4- en Header.tsx obtenemos el theme actual y agregamos un boton para cambiar el theme
 
-✅ hasta aca, tenemos los las el cambio de tema en el Header
+✅ hasta aca, tenemos el cambio de tema en el Header
+
+6️⃣ ViewTransitions
+
+1- modificamos section-container para que tenga el nombre de la viewTransicion
+
+2- en styles.css agregamos las animaciones de rotate-out y rotate-in
+
+3- en login y register agregamos el viewTransition al link
+
+✅ hasta aca, tenemos las transiciones del login al register
+
 

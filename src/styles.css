@@ -257,3 +257,39 @@ html {
     font-size: 1rem;
   }
 }
+
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+   
+html:active-view-transition-type(rotateZ) {
+  &::view-transition-old(section-container) {
+    animation: 0.5s both rotate-out;
+  }
+  &::view-transition-new(section-container) {
+    animation: 0.5s both rotate-in 0.55s;
+  }
+}
+
+@keyframes rotate-out {
+  from {
+    transform: rotate3d(0, 1, 0, 0deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 90deg);
+    opacity: 0.25;
+  }
+}
+
+@keyframes rotate-in {
+  from {
+    transform: rotate3d(0, 1, 0, -90deg);
+    opacity: 0.25;
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 0deg);
+    opacity: 1;
+  }
+}

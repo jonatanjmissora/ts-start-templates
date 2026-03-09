@@ -204,7 +204,10 @@ export function RegisterForm({
 							<Field>
 								<Button type="submit">Registrar</Button>
 								<FieldDescription className="text-center">
-									Ya tienes cuenta ? <Link to="/login">Ingresar</Link>
+									Ya tienes cuenta ?{" "}
+									<Link to="/login" viewTransition={{ types: ["rotateZ"] }}>
+										Ingresar
+									</Link>
 								</FieldDescription>
 							</Field>
 						</FieldGroup>

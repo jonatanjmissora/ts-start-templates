@@ -14,6 +14,7 @@ export const getRouter = () => {
 		context: {
 			...rqContext,
 			session: null,
+			theme: "auto",
 		},
 
 		defaultPreload: "intent",
