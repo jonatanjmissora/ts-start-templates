@@ -77,7 +77,7 @@ export function RegisterForm({
 	return (
 		<div
 			className={cn(
-				"min-w-1/4 flex flex-col gap-6 w-full sm:w-1/4 mx-auto",
+				"flex flex-col gap-6 w-full sm:w-1/3 2xl:w-1/4 mx-auto",
 				className
 			)}
 			{...props}

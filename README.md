@@ -31,7 +31,6 @@ MAIN BRANCH
 * vite.config.ts
 y creamos 
 * drizzle.config.ts
-* neon-vite-plugins.ts
        
 ✅ hasta aca, tenemos la base de datos, con las tablas de better-auth
 

@@ -37,11 +37,13 @@ export default function Header() {
 	}
 
 	return (
-		<header className="py-8 w-[90%] 2xl:w-[80%] mx-auto">
-			<nav className="flex items-center justify-between">
+		<header className="py-8 w-full mx-auto">
+			<nav className="flex items-center justify-center gap-4">
 				<Link to="/" className="text-xl font-semibold">
 					Logo
 				</Link>
+
+				<Navigation />
 
 				{session ? (
 					<DropdownMenuDemo
@@ -64,6 +66,40 @@ export default function Header() {
 				)}
 			</nav>
 		</header>
+	)
+}
+
+function Navigation() {
+	return (
+		<nav className="flex gap-20 w-full items-center justify-center text-xs">
+			<Link
+				to="/"
+				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+				activeProps={{
+					className: "rounded-sm bg-accent",
+				}}
+			>
+				HOME
+			</Link>
+			<Link
+				to="/route1"
+				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+				activeProps={{
+					className: "rounded-sm bg-accent",
+				}}
+			>
+				ROUTE 1
+			</Link>
+			<Link
+				to="/route2"
+				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+				activeProps={{
+					className: "rounded-sm bg-accent",
+				}}
+			>
+				ROUTE 2
+			</Link>
+		</nav>
 	)
 }
 

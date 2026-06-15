@@ -57,13 +57,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	const { theme } = Route.useRouteContext()
 
 	return (
-		<html lang="en" className={theme}>
+		<html
+			lang="en"
+			className={`w-[svw] overflow-x-hidden px-[5svw] sm:px-[20svw] 2xl:px-[30svw] ${theme}`}
+		>
 			<head>
 				<HeadContent />
 			</head>
-			<body className="w-screen overflow-x-hidden flex flex-col min-h-screen">
+			<body className="w-full flex flex-col min-h-screen">
 				<Header />
 				{children}
+				<footer className="w-full flex items-center justify-center my-2 text-xs">
+					LOGO {new Date().getFullYear()}
+				</footer>
 				<Toaster />
 				<TanStackDevtools
 					config={{
