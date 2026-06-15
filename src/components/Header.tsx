@@ -4,7 +4,7 @@ import {
 	useRouteContext,
 	useRouter,
 } from "@tanstack/react-router"
-import { LogOut, Monitor, Moon, Sun } from "lucide-react"
+import { LogOut, Menu, Monitor, Moon, Sun, X } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,6 +14,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion"
 import { authClient } from "@/lib/auth-client"
 import {
 	AlertDialog,
@@ -38,7 +44,7 @@ export default function Header() {
 
 	return (
 		<header className="py-8 w-full mx-auto">
-			<nav className="flex items-center justify-center gap-4">
+			<nav className="w-full flex items-center justify-between gap-4">
 				<Link to="/" className="text-xl font-semibold">
 					Logo
 				</Link>
@@ -70,36 +76,90 @@ export default function Header() {
 }
 
 function Navigation() {
+	const [open, setOpen] = useState(false)
+
 	return (
-		<nav className="flex gap-20 w-full items-center justify-center text-xs">
-			<Link
-				to="/"
-				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
-				activeProps={{
-					className: "rounded-sm bg-accent",
-				}}
-			>
-				HOME
-			</Link>
-			<Link
-				to="/route1"
-				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
-				activeProps={{
-					className: "rounded-sm bg-accent",
-				}}
-			>
-				ROUTE 1
-			</Link>
-			<Link
-				to="/route2"
-				className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
-				activeProps={{
-					className: "rounded-sm bg-accent",
-				}}
-			>
-				ROUTE 2
-			</Link>
-		</nav>
+		<>
+			<nav className="hidden md:flex gap-1 sm:gap-20 w-full items-center justify-center text-xs">
+				<Link
+					to="/"
+					className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+					activeProps={{
+						className: "rounded-sm bg-accent",
+					}}
+				>
+					HOME
+				</Link>
+				<Link
+					to="/route1"
+					className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+					activeProps={{
+						className: "rounded-sm bg-accent",
+					}}
+				>
+					ROUTE 1
+				</Link>
+				<Link
+					to="/route2"
+					className="text-foreground hover:text-foreground/80 text-center py-2 px-4"
+					activeProps={{
+						className: "rounded-sm bg-accent",
+					}}
+				>
+					ROUTE 2
+				</Link>
+			</nav>
+
+			<div className="md:hidden">
+				<Accordion
+					type="single"
+					collapsible
+					value={open ? "menu" : ""}
+					onValueChange={val => setOpen(val === "menu")}
+				>
+					<AccordionItem value="menu" className="border-0">
+						<AccordionTrigger className="justify-center gap-2 text-xs [&>svg:last-child]:hidden">
+							{open ? <X size={20} /> : <Menu size={20} />}
+						</AccordionTrigger>
+						<AccordionContent className="absolute left-0 right-0 z-50 mt-2 mx-5 sm:mx-[20svw] rounded-md border bg-popover p-2 text-popover-foreground shadow-md">
+							<Link
+								to="/"
+								className="block text-center py-2 px-4 text-sm rounded-sm hover:bg-accent"
+								activeProps={{
+									className:
+										"block text-center py-2 px-4 text-sm rounded-sm bg-accent",
+								}}
+								onClick={() => setOpen(false)}
+							>
+								HOME
+							</Link>
+							<Link
+								to="/route1"
+								className="block text-center py-2 px-4 text-sm rounded-sm hover:bg-accent"
+								activeProps={{
+									className:
+										"block text-center py-2 px-4 text-sm rounded-sm bg-accent",
+								}}
+								onClick={() => setOpen(false)}
+							>
+								ROUTE 1
+							</Link>
+							<Link
+								to="/route2"
+								className="block text-center py-2 px-4 text-sm rounded-sm hover:bg-accent"
+								activeProps={{
+									className:
+										"block text-center py-2 px-4 text-sm rounded-sm bg-accent",
+								}}
+								onClick={() => setOpen(false)}
+							>
+								ROUTE 2
+							</Link>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+			</div>
+		</>
 	)
 }
 
